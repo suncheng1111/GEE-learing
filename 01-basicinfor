@@ -1,0 +1,44 @@
+//01-得到数据的基础信息
+
+var l8 = ee.ImageCollection(LANDSATLC08C01T1_TOA);
+var ROI = ee.Geometry.Rectangle(-82.5574, 35.5958, -82.5563, 35.59515);  define area
+var image = l8.filterDate('2017-05-01', '2017-10-01')
+             .filterBounds(ROI)
+             .first();
+
+Map.centerObject(ROI, 8);
+Map.addLayer(image, {min0, max0.3, bands[B4,B3,B2]},image);
+print(image);
+
+pretty code
+var bandList = ee.List(ee.Dictionary(ee.Algorithms.Describe(image)).get('bands'));
+var b1 = ee.Dictionary(bandList.get(0));       
+var dimensions = b1.get(dimensions);
+dimensions = ee.List(dimensions);
+print(dimensions, dimensions);
+var sizex = ee.Number(dimensions.get(0));
+var sizey = ee.Number(dimensions.get(1));
+print(sizex, sizex);
+print(sizey, sizey);
+
+var crs_transform = b1.get(crs_transform);
+print(crs_transform, crs_transform);
+
+
+//02-根据点数据得到对应的图像
+
+//按照时间和位置筛选影像，加载的T1_SR影像，已经过大气校正。
+//按照shape筛选
+var collection = ee.ImageCollection('LANDSAT/LC08/C01/T1_SR').filterBounds(table)
+.filterDate('2020-06-01','2020-09-17');
+// 按照云量排序
+var sorted = collection.sort('CLOUD_COVER');
+var scene = sorted.first();
+print('collection',collection);
+print('sorted',sorted);
+print('scene',scene);
+var visParams = {bands:['B4','B3','B2'],min:0,max:2000};
+Map.addLayer(scene,visParams,'432');
+var image1=ee.Image('LANDSAT/LC08/C01/T1_SR/LC08_119039_20200908')
+Map.addLayer(image1)
+Map.centerObject(image1)
