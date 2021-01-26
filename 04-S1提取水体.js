@@ -1,6 +1,6 @@
 Map.centerObject(geometry);
-var startDate = "2020-4-1";
-var endDate = "2020-5-1";
+var startDate = "2019-4-1";
+var endDate = "2019-5-1";
 var otsu = function(histogram) {
     var counts = ee.Array(ee.Dictionary(histogram).get('histogram'));
     var means = ee.Array(ee.Dictionary(histogram).get('bucketMeans'));
@@ -101,7 +101,7 @@ var histogramSDWIs1 = s1.select("SDWI")
 
   Map.addLayer(
     s1.select("SDWI")
-          .updateMask(s1.select("SDWI").gte(0)), 
+          .updateMask(s1.select("SDWI").gte(-1.6)), 
     {palette: "ff0000"}, 
     "s1SDWI",
     false
@@ -114,7 +114,7 @@ var histogramSDWIs1 = s1.select("SDWI")
   //首先重分类，在用重分的结果去掩
   
   
-var water=s1.where(s1.lte(0.2),0).where(s1.gt(0.2),1)
+var water=s1.where(s1.lte(0),0).where(s1.gt(0),1)
 var myMask = water.eq(0).not();
 water = water.updateMask(myMask);
  var viz = {min:0, max:50, palette: 'red'};
